@@ -37,6 +37,12 @@ Template.checkout_card.helpers({
 			});
 		}
 		return totalPrice;		
+	},
+	'adsData'(id) {
+		const currentData = Ads.findOne({
+			id: id
+		});
+		return currentData;
 	}
 });
 

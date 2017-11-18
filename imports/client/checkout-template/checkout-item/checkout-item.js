@@ -6,3 +6,13 @@ import './checkout-item.html';
 import './checkout-item.css';
 
 
+Template.checkout_item.onRendered(function helloOnCreated() {
+	
+});
+
+Template.checkout_item.helpers({
+	
+});
+
+
+

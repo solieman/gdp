@@ -18,4 +18,9 @@ Template.list_of_ads.helpers({
   ads() {
     return Ads.find({}).fetch();
   },
+  currentUser() {
+    const currentUserData = Meteor.user();
+    console.log(currentUserData);
+    return currentUserData.profile.fisrt_name || currentUserData.profile.last_name;
+  }
 });

@@ -1,5 +1,10 @@
 <template name="list_of_ads">
-	<div class="row">
+	<div>
+		{{> loginButtons}}
+		{{currentUser}}
+	</div>
+	<div>
+	{{#if currentUser}}
 		<div class="col col-md-8">
 			{{#each ads}}
 				{{> ads_view this}}
@@ -8,5 +13,6 @@
 		<div class="total-div col col-md-4">
 			{{> checkout_card}}
 		</div>
+	{{/if}}
 	</div>
 </template>

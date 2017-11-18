@@ -3,11 +3,12 @@
 </head>
 
 <body>
-	<div class="header-div">
-		<h1>Welcome to our ADS system!</h1>		
-	</div>
-  <div>
-    {{> list_of_ads}}
-  </div>
-
+	
 </body>
+
+
+<template name="main_layout">
+		<div>
+			{{> yield}}
+		</div>
+</template>

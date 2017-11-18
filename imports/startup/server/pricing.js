@@ -6,24 +6,28 @@ Meteor.startup(() => {
   if (Pricing.find().count() === 0) {
     const data = [
       {
-        id: 'unilever',
-        name: 'UNILEVER',
-        desc: ['Gets a 3 for 2 deals on Classic Ads']
+        id: 'rule001',
+        name: '3 for 2',
+        desc: ['Gets a 3 for 2 deals on Classic Ads'],
+        clients: ['unilever']
       },
       {
-        id: 'apple',
-        name: 'APPLE',
-        desc: ['Gets a discount on Standout Ads where the price drops to $299.99 per ad']
+        id: 'rule002',
+        name: 'Standout Ads price drops',
+        desc: ['Gets a discount on Standout Ads where the price drops to $299.99 per ad'],
+        clients: ['apple']
       },
       {
-        id: 'nike',
-        name: 'NIKE',
-        desc: ['Gets a discount on Premium Ads where 4 or more are purchased. The price drops to $379.99 per ad']
+        id: 'rule003',
+        name: 'Premium Ads price drops',
+        desc: ['Gets a discount on Premium Ads where 4 or more are purchased. The price drops to $379.99 per ad'],
+        clients: ['nike']
       },
       {
-        id: 'ford',
-        name: 'FORD',
-        desc: ['Gets a 5 for 4 deal on Classic Ads', 'Gets a discount on Standout Ads where the price drops to $309.99 per ad','Gets a discount on Premium Ads when 3 or more are purchased. The price drops to $389.99 per ad']
+        id: 'rule004',
+        name: 'Multiple options',
+        desc: ['Gets a 5 for 4 deal on Classic Ads', 'Gets a discount on Standout Ads where the price drops to $309.99 per ad','Gets a discount on Premium Ads when 3 or more are purchased. The price drops to $389.99 per ad'],
+        clients: ['ford']
       },
 
     ];
