@@ -2,17 +2,24 @@
 	<div>
 		{{> loginButtons}}
 		{{currentUser}}
+		<ul>
+			{{#each currentUserPrisingRules}}
+				<li><label>{{this}}</label></li>
+			{{/each}}
+		</ul>
 	</div>
 	<div>
 	{{#if currentUser}}
-		<div class="col col-md-8">
-			{{#each ads}}
-				{{> ads_view this}}
-			{{/each}}
-		</div>
-		<div class="total-div col col-md-4">
-			{{> checkout_card}}
-		</div>
+		{{#if Template.subscriptionsReady}}
+			<div class="col col-md-8">
+				{{#each ads}}
+					{{> ads_view this}}
+				{{/each}}
+			</div>
+			<div class="total-div col col-md-4">
+				{{> checkout_card}}
+			</div>
+		{{/if}}
 	{{/if}}
 	</div>
 </template>

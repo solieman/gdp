@@ -16,12 +16,10 @@ Accounts.ui.config({
 //     }
 // });
 Accounts.onLogin(function(){
-	// console.log(this.userId , Meteor.user() , Meteor.user()._id );
 	Router.go('ads');
 });
 
 Accounts.onLogout(function(){
-	// console.log(this.userId , Meteor.user() , Meteor.user()._id );
 	Router.go('/');
 })
 

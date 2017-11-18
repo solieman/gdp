@@ -8,7 +8,7 @@ import "./ads-view.css";
 
 Template.ads_view.onRendered(function helloOnCreated() {
 	// counter starts at 0
-	console.log('onRendered', this.data);
+
 });
 
 Template.ads_view.helpers({
@@ -33,8 +33,5 @@ Template.ads_view.events({
     const selectedAds = Session.get('allAds') || [];
     selectedAds.push(target.id);
     Session.set('allAds', selectedAds);
-    
-    console.log(target.id);
-    console.log(selectedAds);
   },
 });

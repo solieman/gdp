@@ -39,6 +39,7 @@ Meteor.startup(() => {
         id: list.id,
         name: list.name,
         desc: list.desc,
+        clients: list.clients,
         createdAt: new Date(timestamp)
       });
       timestamp += 1; // ensure unique timestamp.

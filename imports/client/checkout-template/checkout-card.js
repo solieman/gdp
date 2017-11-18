@@ -8,7 +8,6 @@ import { _ } from 'meteor/underscore';
 import './checkout-card.html';
 
 Template.checkout_card.onRendered(function helloOnCreated() {
-	console.log('onRendered');
 	this.counter = new ReactiveVar(0);
 	Meteor.subscribe("ads", function(res,err) {
 
@@ -27,7 +26,6 @@ Template.checkout_card.helpers({
 	totalPrice(){
 		const checkPrices = Session.get('allAds');
 		const prices = Ads.find({}).fetch();
-		console.log(prices);
 
 		let totalPrice = 0;
 
