@@ -1,0 +1,6 @@
+.total-div {
+	border:solid blue;
+    height: 450px;
+    background-color: #8fbc8f;
+    overflow: scroll;
+}

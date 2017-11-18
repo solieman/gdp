@@ -1,0 +1,20 @@
+<template name="ads_view">
+	{{#with adData}}
+		<!-- Container (Pricing Section) -->
+		<div class="col-sm-3 col-xs-12">
+			<div class="ads-view panel panel-default text-center">
+				<div class="panel-heading">
+					<h1>{{name}}</h1>
+				</div>
+				<div class="panel-body">
+					<p><strong>{{desc}}</strong></p>
+				</div>
+				<div class="panel-footer">
+					<h3>${{price}}</h3>
+					<h4>per ad</h4>
+					<button id="{{id}}" class="add-item-to-cart btn btn-lg">Add to cart</button>
+				</div>
+			</div>      
+		</div> 
+	{{/with}}
+</template>

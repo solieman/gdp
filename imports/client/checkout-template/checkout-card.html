@@ -1,0 +1,11 @@
+<template name='checkout_card'>
+	<div>
+		Total: {{totalCount}}
+		Cost: {{totalPrice}}
+	</div>
+	{{#each allSelectedAds}}
+		<div>
+			{{> checkout_item}}
+		</div>
+	{{/each}}	
+</template>
