@@ -1,0 +1,39 @@
+<template name="list_of_ads">
+	<div>
+		<div class="header-div">
+			<h1>{{currentUser}}</h1>
+		</div>
+			
+		<div class="row">
+			<div class="col col-md-8">
+				{{#if currentUserPrisingRules}}
+					<h4>Your pecial offer</h4>
+					<ul>
+						{{#each currentUserPrisingRules}}
+							<li><label>{{this}}</label></li>
+						{{/each}}
+					</ul>
+				{{/if}}
+			</div>
+			<div class="col col-md-4">
+				{{#if canCheckOut}}
+					<div>
+						<div><h1>{{currentTotal}}</h1></div>
+						<button class="checkout-btn">Checkout</button>
+					</div>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+	<div>
+	{{#if currentUser}}
+		{{#if Template.subscriptionsReady}}
+			<div class="col col-md-12">
+				{{#each ads}}
+					{{> ads_view this}}
+				{{/each}}
+			</div>
+		{{/if}}
+	{{/if}}
+	</div>
+</template>
