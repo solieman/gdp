@@ -12,7 +12,8 @@ Template.list_of_ads.created = function() {
 
   template.reactiveVars = {
     listOfRules: new ReactiveVar(null),
-    currentTotal: new ReactiveVar(0)
+    currentTotal: new ReactiveVar(0),
+    listOfRulesDesc: new ReactiveVar(null)
   };
 
   Meteor.subscribe("ads", function(res,err) {
@@ -24,7 +25,35 @@ Template.list_of_ads.created = function() {
   });
 }
 
+Template.list_of_ads.onCreated(function () {
+
+        
+});
+
 Template.list_of_ads.onRendered(function helloOnCreated() {
+  const template = this;
+
+
+  // const listOfRulesDesc = [];
+
+  
+
+  // template.reactiveVars.listOfRulesDesc.set(listOfRulesDesc);
+
+  this.autorun(()=> {
+
+    const listOfRulesArray = template.reactiveVars.listOfRules.get();
+    const selectedAds = Session.get('allAds');
+
+    Meteor.call('calculateTotal', listOfRulesArray, selectedAds, (error, response) => {
+      if (error) {
+        console.log(error);
+      } else {
+        const cTotal = parseFloat(Number(response).toFixed(2));
+        template.reactiveVars.currentTotal.set(cTotal);
+      }
+    });
+  });
 
 });
 
@@ -44,10 +73,10 @@ Template.list_of_ads.helpers({
     return null;
   },
   currentUserPrisingRules() {
-    const currentUserData = Meteor.user();
     const template = Template.instance();
+    const currentUserData = Meteor.user();
     const listOfRulesDesc = [];
-
+    
     if (currentUserData) {
       const cp = Pricing.find({
         clients: currentUserData.username
@@ -72,6 +101,7 @@ Template.list_of_ads.helpers({
         });
       }
     }
+    template.reactiveVars.listOfRulesDesc.set(listOfRulesDesc);
     return listOfRulesDesc;    
   },
   canCheckOut() {
@@ -83,17 +113,6 @@ Template.list_of_ads.helpers({
   },
   currentTotal() {
     const template = Template.instance();
-    const listOfRulesArray = template.reactiveVars.listOfRules.get();
-    const selectedAds = Session.get('allAds');
-
-    Meteor.call('calculateTotal', listOfRulesArray, selectedAds, (error, response) => {
-      if (error) {
-        
-      } else {
-        const cTotal = parseFloat(Number(response).toFixed(2));
-        template.reactiveVars.currentTotal.set(cTotal);
-      }
-    });
 
     return template.reactiveVars.currentTotal.get();
   }

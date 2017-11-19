@@ -5,7 +5,7 @@
 		</div>
 			
 		<div class="row">
-			<div class="col col-md-8">
+			<div class="col col-xs-8">
 				{{#if currentUserPrisingRules}}
 					<h4>Your pecial offer</h4>
 					<ul>
@@ -15,10 +15,10 @@
 					</ul>
 				{{/if}}
 			</div>
-			<div class="col col-md-4">
+			<div class="col col-xs-4">
 				{{#if canCheckOut}}
 					<div>
-						<div><h1>{{currentTotal}}</h1></div>
+						<div><h1>${{currentTotal}}</h1></div>
 						<button class="checkout-btn">Checkout</button>
 					</div>
 				{{/if}}

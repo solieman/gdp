@@ -4,7 +4,7 @@ import { Ads } from '/imports/shared/ads.js';
 Meteor.methods({
     calculateTotal: function(rules,listOfItems){
     	const currentUserData = Meteor.user();
-    	
+
         let total = 0;
 
         if (currentUserData) {
@@ -22,6 +22,9 @@ Meteor.methods({
 		        	case 'rule004':
 		        		total = rule004(listOfItems);
 		        	break;
+		        	default:
+		        		total = norule(listOfItems);
+		        	break;
 		        }
         	});	        	
         }
@@ -29,8 +32,17 @@ Meteor.methods({
     }
 });
 
-
 //Rules implementation
+function norule(listOfItems) {
+	let total = 0;
+	_.each(listOfItems,function(item){
+    	const price = parseFloat(Ads.findOne({id:item}).price);
+    	total += price;
+	});
+
+	return total;
+}
+
 function rule001(listOfItems) {
 	const filteredRuledList =  _.filter(listOfItems, function(item) {
 		return item === 'classic'
@@ -82,7 +94,7 @@ function rule003(listOfItems) {
 		return item !== 'premium'
 	});
 
-	let discTotal = moreAreCheaper(filteredRuledList.listLength,4,'premium',379.99);	
+	let discTotal = moreAreCheaper(filteredRuledList.length,4,'premium',379.99);	
 	
 	let otherTotal = 0;
 	_.each(filteredUnRuledList,function(item){
@@ -94,23 +106,23 @@ function rule003(listOfItems) {
 }
 
 function rule004(listOfItems) {
+	const classicPrice = parseFloat(Ads.findOne({id:'classic'}).price);
 	const filteredClassicRuledList =  _.filter(listOfItems, function(item) {
 		return item === 'classic'
 	});
-	const classicPrice = parseFloat(Ads.findOne({id:'classic'}).price);
     const classicDiscTotal = yFORx(filteredClassicRuledList.length,4,5,classicPrice);
 
+	const standoutPrice = parseFloat(Ads.findOne({id:'standout'}).price);
 	const filteredStandoutRuledList =  _.filter(listOfItems, function(item) {
 		return item === 'standout'
 	});
-	const standoutPrice = parseFloat(Ads.findOne({id:'standout'}).price);
 	const standoutDiscTotal = cutItAllDown(filteredStandoutRuledList.length, 309.99);
 
+	const premiumPrice = parseFloat(Ads.findOne({id:'premium'}).price);
 	const filteredPremiumRuledList =  _.filter(listOfItems, function(item) {
 		return item === 'premium'
 	});
-	const premiumPrice = parseFloat(Ads.findOne({id:'premium'}).price);
-    const premiumDiscTotal = moreAreCheaper(filteredPremiumRuledList.listLength,3,'premium',389.99);	
+    const premiumDiscTotal = moreAreCheaper(filteredPremiumRuledList.length,3,'premium',389.99);	
 
     return (classicDiscTotal+standoutDiscTotal+premiumDiscTotal);
 }
@@ -129,15 +141,17 @@ function yFORx(listLength,x,y,price) {
 
 //Fixed discount
 function cutItAllDown(listLength,newPrice) {
-	return listLength * newPrice;
+	return (Number(listLength) * Number(newPrice));
 }
 
-//Rech this limit to be winner
+//Reach this limit to be winner
 function moreAreCheaper(listLength,limit,type,newPrice) {
+	let discTotal = 0;
 	if (listLength >= limit) {//4
-		discTotal = listLength * newPrice;
+		discTotal = Number(listLength) * Number(newPrice);
 	} else {
     	const price = parseFloat(Ads.findOne({id:type}).price);
-		discTotal = listLength * price;
+		discTotal = Number(listLength) * Number(price);
 	}
+	return discTotal;
 }

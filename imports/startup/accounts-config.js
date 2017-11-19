@@ -17,10 +17,12 @@ Accounts.ui.config({
 // });
 Accounts.onLogin(function(){
 	Router.go('ads');
+    Session.set('allAds',[]);
 });
 
 Accounts.onLogout(function(){
 	Router.go('/');
+    Session.set('allAds',[]);
 })
 
 var users=[

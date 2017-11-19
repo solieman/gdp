@@ -14,6 +14,15 @@ Template.ads_view.created = function() {
     template.reactiveVars = {
         counter: new ReactiveVar(0)
     };
+
+    const selectedAds = Session.get('allAds');
+    const thisAdType = template.data.id;
+
+    const filteredRuledList =  _.filter(selectedAds, function(item) {
+        return item === thisAdType;
+    });
+
+    template.reactiveVars.counter.set(filteredRuledList.length);
 }
 
 Template.ads_view.onRendered(function helloOnCreated() {
