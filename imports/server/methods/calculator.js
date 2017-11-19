@@ -8,25 +8,29 @@ Meteor.methods({
         let total = 0;
 
         if (currentUserData) {
-        	_.each(rules, function(rule){
-        		switch(rule) {
-		        	case 'rule001':
-		        		total = rule001(listOfItems);
-		        	break;
-		        	case 'rule002':
-		        		total = rule002(listOfItems);
-		        	break;
-		        	case 'rule003':
-		        		total = rule003(listOfItems);
-		        	break;
-		        	case 'rule004':
-		        		total = rule004(listOfItems);
-		        	break;
-		        	default:
-		        		total = norule(listOfItems);
-		        	break;
-		        }
-        	});	        	
+        	if (rules && rules.length > 0) {
+        		_.each(rules, function(rule){
+	        		switch(rule) {
+			        	case 'rule001':
+			        		total = rule001(listOfItems);
+			        	break;
+			        	case 'rule002':
+			        		total = rule002(listOfItems);
+			        	break;
+			        	case 'rule003':
+			        		total = rule003(listOfItems);
+			        	break;
+			        	case 'rule004':
+			        		total = rule004(listOfItems);
+			        	break;
+			        	default:
+			        		total = norule(listOfItems);
+			        }
+	        	});
+        	} else {
+        		total = norule(listOfItems);
+        	}
+        		        	
         }
         return total;
     }

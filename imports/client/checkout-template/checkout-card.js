@@ -22,9 +22,28 @@ Template.checkout_card.helpers({
 		return selectedAds;
 	},
 	totalCount(){
-		return Session.get('allAds').length;
+		const allAds = Session.get('allAds');
+
+		const classicList =  _.filter(allAds, function(item) {
+			return item === 'classic'
+		});
+
+		const standoutList =  _.filter(allAds, function(item) {
+			return item === 'standout'
+		});
+	
+		const premiumList =  _.filter(allAds, function(item) {
+			return item === 'premium'
+		});
+
+		return {
+			classic: classicList.length,
+			standout: standoutList.length,
+			premium: premiumList.length
+		}
+
 	},
-	totalPrice(){
+	defaultPrice(){
 		const checkPrices = Session.get('allAds');
 		const prices = Ads.find({}).fetch();
 
@@ -35,7 +54,11 @@ Template.checkout_card.helpers({
 				totalPrice += parseFloat(_.findWhere(prices,{id:element}).price);
 			});
 		}
-		return totalPrice;		
+		return totalPrice.toFixed(2);		
+	},
+	clientPrice () {
+		const thisClientTotal = Session.get('clientTotal');
+		return thisClientTotal;
 	},
 	'adsData'(id) {
 		const currentData = Ads.findOne({

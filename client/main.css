@@ -1,4 +1,13 @@
 /* CSS declarations go here */
+body {
+	background-color: #778899;
+}
+
+.page-header {
+	background-color: #5f9ea0;
+    padding-left: 1em;
+    border-radius: 1em;
+}
 
 .page-header h1 {
 	margin: 1em 0 0.5em 0;

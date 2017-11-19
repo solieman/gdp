@@ -5,11 +5,16 @@
 <body>
 
 	<div class="container">
-  		<div class="page-header">
-			<h1>Welcome to our ADS system!</h1>
-			{{#if currentUser}}
-				<h3>Hello {{> loginButtons}}</h3>
-			{{/if}}
+  		<div class="page-header row">
+  			<div class="col col-xs-8">
+				<h1>Welcome to our ADS system!</h1>			
+  			</div>
+  			<div class="col-xs-4">
+	  			{{#if currentUser}}
+					<h3>Hello {{> loginButtons}}</h3>
+				{{/if}}	
+  			</div>
+			
 		</div>
 	</div>
 	

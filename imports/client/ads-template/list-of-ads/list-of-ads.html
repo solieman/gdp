@@ -17,9 +17,13 @@
 			</div>
 			<div class="col col-xs-4">
 				{{#if canCheckOut}}
-					<div>
-						<div><h1>${{currentTotal}}</h1></div>
-						<button class="checkout-btn">Checkout</button>
+					<div class="row">
+						<div class="col col-xs-8">
+							<h1>${{currentTotal}}</h1>
+						</div>
+						<dir class="col col-xs-4">
+							<button class="checkout-btn btn btn-success">Checkout</button>						
+						</dir>
 					</div>
 				{{/if}}
 			</div>

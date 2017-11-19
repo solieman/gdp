@@ -67,8 +67,13 @@ Template.list_of_ads.helpers({
   },
   currentUser() {
     const currentUserData = Meteor.user();
+    console.log(currentUserData);
     if (currentUserData) {
-      return currentUserData.profile.fisrt_name || currentUserData.profile.last_name;
+      if (currentUserData.profile && (currentUserData.profile.fisrt_name || currentUserData.profile.last_name) ) {
+        return currentUserData.profile.fisrt_name || currentUserData.profile.last_name;
+      } else {
+        return currentUserData.username;
+      }
     }
     return null;
   },
@@ -102,7 +107,7 @@ Template.list_of_ads.helpers({
       }
     }
     template.reactiveVars.listOfRulesDesc.set(listOfRulesDesc);
-    return listOfRulesDesc;    
+    return listOfRulesDesc || true;    
   },
   canCheckOut() {
     const adsSelected = Session.get('allAds');
@@ -120,8 +125,9 @@ Template.list_of_ads.helpers({
 
 Template.list_of_ads.events({
   'click .checkout-btn'(event) {
-    const temp = Template.instance();
+    const template = Template.instance();
     event.preventDefault();
+    Session.set('clientTotal', template.reactiveVars.currentTotal.get());
     Router.go('checkout');
   },
 });

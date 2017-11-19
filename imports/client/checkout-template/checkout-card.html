@@ -1,20 +1,31 @@
 <template name='checkout_card'>
 
-	<div class="back-div">
-		<button class="back_btn">Back</button>
-	</div>
+	
 
-	<div class="header-div">
+	<div class="row header-div">
 		<h1>{{currentUser}}</h1>
 	</div>
 			
 	<div>
-		Total: {{totalCount}}
-		Cost: {{totalPrice}}
-	</div>
-	<!-- {{#each allSelectedAds}}
-		<div>
-			{{> checkout_item adsData this}}
+		<div class="col col-xs-2">
+			<button class="btn btn-info back_btn">Back</button>
 		</div>
-	{{/each}} -->
+		<div class="col col-xs-8">
+			<div >
+				<h1>Total:</h1>
+				{{#with totalCount}}
+					<h2>Classic: {{classic}}</h2>
+					<h2>Standout: {{standout}}</h2>
+					<h2>Premium: {{premium}}</h2>
+				{{/with}}
+
+			</div>
+
+			<h1>Default Price: ${{defaultPrice}}</h1>
+			<h1>Your Price: ${{clientPrice}}</h1>
+		</div>
+		<div class="col col-xs-2">
+			<div class="btn btn-success">Submit Your Order</div>
+		</div>
+	</div>
 </template>
