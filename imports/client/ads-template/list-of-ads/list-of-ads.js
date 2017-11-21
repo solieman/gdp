@@ -28,7 +28,6 @@ Template.list_of_ads.onCreated(function () {
       console.log(error);
 
     } else {
-      console.log(result);
       // template.reactiveVars.listOfRules.set(listOfRulesArray);
       template.reactiveVars.listOfRulesDesc.set(result);
     }
@@ -39,7 +38,6 @@ Template.list_of_ads.onCreated(function () {
       console.log(error);
 
     } else {
-      console.log(result);
       template.reactiveVars.listOfRules.set(result);
     }
   });
@@ -48,11 +46,6 @@ Template.list_of_ads.onCreated(function () {
 
 Template.list_of_ads.onRendered(function helloOnCreated() {
   const template = this;
-
-
-  // const listOfRulesDesc = [];
-
-  // template.reactiveVars.listOfRulesDesc.set(listOfRulesDesc);
 
   this.autorun(()=> {
 

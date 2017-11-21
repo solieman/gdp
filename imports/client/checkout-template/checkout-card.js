@@ -96,18 +96,18 @@ Template.checkout_card.helpers({
 
 Template.checkout_card.events({
   'click .back-btn'(event) {
-    const temp = Template.instance();
     event.preventDefault();
     Router.go('ads');
   },
   'click .submit-order-btn'(event) {
   	event.preventDefault();
-  	const temp = Template.instance();
+  	const template = Template.instance();
 	const selectedAds = Session.get('allAds');
 	const thisClientTotal = Session.get('clientTotal');
+	const pricingRules = template.reactiveVars.listOfRules.get();
 
   	const newOrderData = {
-  		pricingRules: template.reactiveVars.listOfRules.get(),
+  		pricingRules: pricingRules,
   		listOfItems: selectedAds,
   		totalPrice: thisClientTotal
   	};
@@ -115,8 +115,7 @@ Template.checkout_card.events({
   	Meteor.call('insertNewOrder', newOrderData, function(err, result){
 
   		if(err) {
-  			console.log(err);
-
+  			sAlert.error('We are facing some technical issues!!!', {onRouteClose: false, timeout: 6000,position: 'top', stack: false});
   		} else {
   			sAlert.info('Your order submitted, our team will come back to you soon.', {onRouteClose: false, timeout: 6000,position: 'top', stack: false});
   			Session.set('allAds',null);

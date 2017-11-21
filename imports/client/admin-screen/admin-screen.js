@@ -16,13 +16,9 @@ Template.admin_screen.created = function () {
 		listOfOrders : new ReactiveVar(0)
 	}
 	Meteor.subscribe("orders", function() {
-		console.log('done');
 		const ordersList = Orders.find({}).fetch();
 		template.reactiveVars.listOfOrders.set(ordersList);
-		console.log(ordersList);
-
 	});
-
 
 }
 

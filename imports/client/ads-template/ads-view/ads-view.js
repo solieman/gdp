@@ -64,8 +64,6 @@ Template.ads_view.events({
     selectedAds.push(target.id);
     Session.set('allAds', selectedAds);
 
-    console.log(target)
-
     sAlert.info('New '+ target.id +' item added to your list', {onRouteClose: true, timeout: 1500});
 
   },

@@ -6,7 +6,7 @@ body {
 .page-header {
 	background-color: #5f9ea0;
     padding-left: 1em;
-    border-radius: 1em;
+    border-radius: 12px;
 }
 
 .page-header h1 {
