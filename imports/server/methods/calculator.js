@@ -33,7 +33,19 @@ Meteor.methods({
         		        	
         }
         return total;
-    }
+    },
+    defaultPrice: function(listOfItems){
+		const prices = Ads.find({}).fetch();
+
+		let totalPrice = 0;
+
+		if (listOfItems && listOfItems.length > 0) {
+			_.each(listOfItems,function(element) {
+				totalPrice += parseFloat(_.findWhere(prices,{id:element}).price);
+			});
+		}
+		return totalPrice.toFixed(2);		
+	}
 });
 
 //Rules implementation
@@ -158,4 +170,11 @@ function moreAreCheaper(listLength,limit,type,newPrice) {
 		discTotal = Number(listLength) * Number(price);
 	}
 	return discTotal;
+}
+
+
+function add() {
+  return Array.prototype.slice.call(arguments).reduce(function(prev, curr) {
+    return prev + curr;
+  }, 0);
 }

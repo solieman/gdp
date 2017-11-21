@@ -9,12 +9,26 @@ import { Ads } from '/imports/shared/ads.js';
 import './checkout-card.html';
 import './checkout-card.css';
 
-Template.checkout_card.onRendered(function helloOnCreated() {
-	this.counter = new ReactiveVar(0);
+Template.checkout_card.created = function () {
+	const template = this;
+
+	template.reactiveVars = {
+		defaultPrice : new ReactiveVar(0)
+	}
 	Meteor.subscribe("ads", function(res,err) {
 
 	});
-});
+
+	const checkPrices = Session.get('allAds');
+		
+	Meteor.call('defaultPrice', checkPrices, function (error, result){
+		if (error) {
+
+		} else {
+			template.reactiveVars.defaultPrice.set(result);
+		}
+	});
+}
 
 Template.checkout_card.helpers({
 	allSelectedAds() {
@@ -44,17 +58,10 @@ Template.checkout_card.helpers({
 
 	},
 	defaultPrice(){
-		const checkPrices = Session.get('allAds');
-		const prices = Ads.find({}).fetch();
-
-		let totalPrice = 0;
-
-		if (checkPrices && checkPrices.length > 0) {
-			_.each(checkPrices,function(element) {
-				totalPrice += parseFloat(_.findWhere(prices,{id:element}).price);
-			});
+		const template = Template.instance();
+		if (template.reactiveVars.defaultPrice.get()) {
+        	return template.reactiveVars.defaultPrice.get();
 		}
-		return totalPrice.toFixed(2);		
 	},
 	clientPrice () {
 		const thisClientTotal = Session.get('clientTotal');
@@ -77,10 +84,30 @@ Template.checkout_card.helpers({
 
 
 Template.checkout_card.events({
-  'click .back_btn'(event) {
+  'click .back-btn'(event) {
     const temp = Template.instance();
     event.preventDefault();
     Router.go('ads');
   },
-});
+  'click .submit-order-btn'(event) {
+  	event.preventDefault();
+  	const temp = Template.instance();
+	const selectedAds = Session.get('allAds');
+	const thisClientTotal = Session.get('clientTotal');
 
+  	const newOrderData = {
+  		listOfItems: selectedAds,
+  		totalPrice: thisClientTotal
+  	};
+
+  	Meteor.call('insertNewOrder', newOrderData, function(err, result){
+
+  		if(err) {
+  			console.log(err);
+
+  		} else {
+  			console.log(result);
+  		}
+  	});
+  }
+});

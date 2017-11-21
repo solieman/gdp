@@ -67,7 +67,6 @@ Template.list_of_ads.helpers({
   },
   currentUser() {
     const currentUserData = Meteor.user();
-    console.log(currentUserData);
     if (currentUserData) {
       if (currentUserData.profile && (currentUserData.profile.fisrt_name || currentUserData.profile.last_name) ) {
         return currentUserData.profile.fisrt_name || currentUserData.profile.last_name;
