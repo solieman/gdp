@@ -6,8 +6,8 @@ import { _ } from 'meteor/underscore';
 
 import { Orders } from '/imports/shared/orders.js';
 
-import './checkout-card.html';
-import './checkout-card.css';
+import './admin-screen.html';
+import './admin-screen.css';
 
 Template.admin_screen.created = function () {
 	const template = this;
@@ -15,14 +15,15 @@ Template.admin_screen.created = function () {
 	template.reactiveVars = {
 		listOfOrders : new ReactiveVar(0)
 	}
-	Meteor.subscribe("orders", function(res,err) {
-		if (err) {
-
-		} else {
-			template.reactiveVars.listOfOrders.set(Orders.find({}).fetch());
-		}
+	Meteor.subscribe("orders", function() {
+		console.log('done');
+		const ordersList = Orders.find({}).fetch();
+		template.reactiveVars.listOfOrders.set(ordersList);
+		console.log(ordersList);
 
 	});
+
+
 }
 
 Template.admin_screen.helpers({

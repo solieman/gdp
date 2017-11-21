@@ -16,21 +16,27 @@ Accounts.ui.config({
 //     }
 // });
 Accounts.onLogin(function(){
-	Router.go('ads');
+	const currentUser = Meteor.user();
+	
+	if (currentUser.profile && currentUser.profile.roles[0] === 'admin') {
+		Router.go('admin');
+	} else {
+		Router.go('ads');
+	}
     Session.set('allAds',[]);
 });
 
 Accounts.onLogout(function(){
-	Router.go('/');
-    Session.set('allAds',[]);
-})
+	Session.set('allAds',[]);
+	Router.go('/');    
+});
 
 var users=[
    {email: "admin@ads.com", username: "admin", name: "Admin", roles:['admin'], password:'admin'},
    {email: "unilever@ads.com", username: "unilever", name: "UNILEVER", roles:['user'], password:'unilever'},
    {email: "apple@ads.com", username: "apple", name: "APPLE", roles:['user'], password:'apple'},
    {email: "nike@ads.com", username: "nike", name: "NIKE", roles:['user'], password:'nike'},
-   {email: "ford@ads.com", username: "ford", name: "FORD", roles:['admin'], password:'ford'},
+   {email: "ford@ads.com", username: "ford", name: "FORD", roles:['user'], password:'ford'},
 
 ];
 
@@ -42,7 +48,7 @@ if ( Meteor.users.find().count() === 0 ) {
 	        username: user.username,
 	        profile: {first_name: user.name},
 	        profile: {last_name: user.name},
-	        roles: user.roles
+	        profile: {roles: user.roles}
 	    });
 	});
 }

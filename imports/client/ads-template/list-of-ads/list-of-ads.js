@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Ads } from '/imports/shared/ads.js';
-import { Pricing } from '/imports/shared/pricing.js';
 
 import "./list-of-ads.css";
 import "./list-of-ads.html";
@@ -19,14 +18,31 @@ Template.list_of_ads.created = function() {
   Meteor.subscribe("ads", function(res,err) {
 
   });
-
-  Meteor.subscribe("pricing", function(res,err) {
-    
-  });
 }
 
 Template.list_of_ads.onCreated(function () {
+  const template = Template.instance();
 
+  Meteor.call('pricinRules', function(error,result){
+    if (error) {
+      console.log(error);
+
+    } else {
+      console.log(result);
+      // template.reactiveVars.listOfRules.set(listOfRulesArray);
+      template.reactiveVars.listOfRulesDesc.set(result);
+    }
+  });
+
+  Meteor.call('listOfRules', function(error,result){
+    if (error) {
+      console.log(error);
+
+    } else {
+      console.log(result);
+      template.reactiveVars.listOfRules.set(result);
+    }
+  });
         
 });
 
@@ -35,8 +51,6 @@ Template.list_of_ads.onRendered(function helloOnCreated() {
 
 
   // const listOfRulesDesc = [];
-
-  
 
   // template.reactiveVars.listOfRulesDesc.set(listOfRulesDesc);
 
@@ -78,35 +92,9 @@ Template.list_of_ads.helpers({
   },
   currentUserPrisingRules() {
     const template = Template.instance();
-    const currentUserData = Meteor.user();
-    const listOfRulesDesc = [];
+
+    return template.reactiveVars.listOfRulesDesc.get();
     
-    if (currentUserData) {
-      const cp = Pricing.find({
-        clients: currentUserData.username
-      }).fetch();
-
-
-      const listOfRulesArray = [];
-
-      _.each(cp,function(cpItem){
-        listOfRulesArray.push(_.pick(cpItem, 'id').id);
-      });
-
-      template.reactiveVars.listOfRules.set(listOfRulesArray);
-
-      if (cp && cp.length > 0) {
-        _.each(cp, function(cpItem){
-          if (cpItem.desc && cpItem.desc.length > 0) {
-            _.each(cpItem.desc, function(descData){
-              listOfRulesDesc.push(descData);
-            })
-          }
-        });
-      }
-    }
-    template.reactiveVars.listOfRulesDesc.set(listOfRulesDesc);
-    return listOfRulesDesc || true;    
   },
   canCheckOut() {
     const adsSelected = Session.get('allAds');
@@ -127,6 +115,7 @@ Template.list_of_ads.events({
     const template = Template.instance();
     event.preventDefault();
     Session.set('clientTotal', template.reactiveVars.currentTotal.get());
+    sAlert.closeAll();
     Router.go('checkout');
   },
 });

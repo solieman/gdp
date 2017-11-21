@@ -13,7 +13,8 @@ Template.checkout_card.created = function () {
 	const template = this;
 
 	template.reactiveVars = {
-		defaultPrice : new ReactiveVar(0)
+		defaultPrice : new ReactiveVar(0),
+		listOfRules: new ReactiveVar([])
 	}
 	Meteor.subscribe("ads", function(res,err) {
 
@@ -27,6 +28,16 @@ Template.checkout_card.created = function () {
 		} else {
 			template.reactiveVars.defaultPrice.set(result);
 		}
+	});
+
+	Meteor.call('listOfRules', function(error,result){
+		if (error) {
+	      console.log(error);
+
+	    } else {
+	      console.log(result);
+	      template.reactiveVars.listOfRules.set(result);
+	    }
 	});
 }
 
@@ -96,6 +107,7 @@ Template.checkout_card.events({
 	const thisClientTotal = Session.get('clientTotal');
 
   	const newOrderData = {
+  		pricingRules: template.reactiveVars.listOfRules.get(),
   		listOfItems: selectedAds,
   		totalPrice: thisClientTotal
   	};
@@ -106,7 +118,9 @@ Template.checkout_card.events({
   			console.log(err);
 
   		} else {
-  			console.log(result);
+  			sAlert.info('Your order submitted, our team will come back to you soon.', {onRouteClose: false, timeout: 6000,position: 'top', stack: false});
+  			Session.set('allAds',null);
+  			Router.go('ads')
   		}
   	});
   }

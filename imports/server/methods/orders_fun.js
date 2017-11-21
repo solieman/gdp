@@ -17,7 +17,9 @@ Meteor.methods({
         	Orders.insert({
         		customer: currentUserData.username,
 				listOfItems: orderData.listOfItems,
-				totalExpected: orderData.totalPrice
+				totalExpected: orderData.totalPrice,
+                confirmed:false,
+                createdDate: new Date()
         	});
         	return true;
         }
