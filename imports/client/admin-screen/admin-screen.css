@@ -1,4 +1,9 @@
 .orders-table {
 	border: solid;
 	text-align: center; 
+	margin: 10px;
+}
+
+.admin-remove-smoe {
+	width: 100%;
 }

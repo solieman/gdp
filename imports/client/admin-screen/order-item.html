@@ -1,0 +1,25 @@
+<template name="order_item">
+
+	<div class="row">
+		<div class="col col-md-2 col-xs-2">{{customer}}</div>
+		<div class="col col-md-3 col-xs-3">
+			<ul>
+				{{#each item in listOfItems}}
+					<li>{{item}}</li>
+				{{/each}}
+			</ul>
+		</div>
+		{{#if confirmed}}
+			<div class="col col-md-2 col-xs-2"></div>
+			<div class="col col-md-2 col-xs-2"></div>
+			<div class="col col-md-1 col-xs-1">${{totalExpected}}</div>
+			<div class="col col-md-2 col-xs-2"><div id="{{_id}}" class="alert alert-success">Confirmed</div></div>
+		{{else}}
+			<div class="col col-md-2 col-xs-2">{{totalExpected}}</div>
+			<div class="col col-md-2 col-xs-2"><input class="admin-remove-smoe" type="number" name="Discount" min="0"></div>
+			<div class="col col-md-1 col-xs-1">${{finalTotalToConfirm totalExpected}}</div>
+			<div class="col col-md-2 col-xs-2"><div id="{{_id}}" class="confirm-btn btn btn-info">Confirm</div></div>
+		{{/if}}
+	</div>
+	
+</template>

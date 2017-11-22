@@ -5,16 +5,7 @@ Accounts.ui.config({
   passwordSignupFields: 'USERNAME_ONLY',
 });
 
-// Accounts.createUser({
-//     username: 'admin',
-//     email: 'admin@admin.com',
-//     password: 'admin',
-//     profile: {
-//         first_name: 'Admin',
-//         last_name: 'Last',
-//         company: 'company',
-//     }
-// });
+
 Accounts.onLogin(function(){
 	const currentUser = Meteor.user();
 	
@@ -36,8 +27,7 @@ var users=[
    {email: "unilever@ads.com", username: "unilever", name: "UNILEVER", roles:['user'], password:'unilever'},
    {email: "apple@ads.com", username: "apple", name: "APPLE", roles:['user'], password:'apple'},
    {email: "nike@ads.com", username: "nike", name: "NIKE", roles:['user'], password:'nike'},
-   {email: "ford@ads.com", username: "ford", name: "FORD", roles:['user'], password:'ford'},
-
+   {email: "ford@ads.com", username: "ford", name: "FORD", roles:['user'], password:'ford'}
 ];
 
 if ( Meteor.users.find().count() === 0 ) {
@@ -51,4 +41,12 @@ if ( Meteor.users.find().count() === 0 ) {
 	        profile: {roles: user.roles}
 	    });
 	});
+	Meteor.logoutOtherClients(function(error,result){
+		if(error) {
+			console.log(error.message);
+		} else {
+			console.log('...');
+		}
+
+	})
 }

@@ -13,14 +13,31 @@ Template.admin_screen.created = function () {
 	const template = this;
 
 	template.reactiveVars = {
-		listOfOrders : new ReactiveVar(0)
+		listOfOrders : new ReactiveVar(0),
+		adminDiscount : new ReactiveVar(0),
+		newTotal: new ReactiveVar(-1)
 	}
+
 	Meteor.subscribe("orders", function() {
 		const ordersList = Orders.find({}).fetch();
 		template.reactiveVars.listOfOrders.set(ordersList);
 	});
-
 }
+
+
+Template.admin_screen.onRendered(function helloOnCreated() {
+  const template = this;
+
+  this.autorun(()=> {
+  	const refreshAdminScreen = Session.get('refreshAdminScreen');
+
+  	const ordersList = Orders.find({}).fetch();
+	template.reactiveVars.listOfOrders.set(ordersList);
+
+  });
+
+});
+
 
 Template.admin_screen.helpers({
 	allOrders() {
@@ -30,5 +47,5 @@ Template.admin_screen.helpers({
 });
 
 Template.admin_screen.events({
-  
+	
 });

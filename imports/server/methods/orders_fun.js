@@ -23,8 +23,25 @@ Meteor.methods({
         	});
         	return true;
         }
+    },
+    'confirmOrder'(orderId, newTotal){
+        const currentUserData = Meteor.user();
+
+        if (currentUserData) {
+            updateOrder(orderId, newTotal);
+        }
     }
 });
 
 
-
+async function updateOrder(orderId,newTotal) {
+  const oldData = await Orders.findOne({_id: orderId});
+  const newData = await Orders.insert({
+        customer: oldData.customer,
+        listOfItems: oldData.listOfItems,
+        totalExpected: newTotal,
+        confirmed:true,
+        createdDate: new Date()
+    });
+  return await Orders.remove({_id:orderId});
+}

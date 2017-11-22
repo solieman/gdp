@@ -8,6 +8,8 @@ import '../imports/client/ads-template/ads-view/ads-view.js';
 import '../imports/client/checkout-template/checkout-card.js';
 import '../imports/client/checkout-template/checkout-item/checkout-item.js';
 import '../imports/client/admin-screen/admin-screen.js';
+import '../imports/client/admin-screen/order-item.js';
+
 
 import '../imports/startup/accounts-config.js';
 
