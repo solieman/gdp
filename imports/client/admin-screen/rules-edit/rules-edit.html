@@ -1,0 +1,29 @@
+<template name='rules_edit'>
+	<div>
+		<header>
+			<div class="confirm-orders-btn btn btn-info pull-right">Confirm Orders</div>
+			<h2>List of Rules</h2>
+		</header>
+		<section>
+			<header>
+				<div class="orders-table">
+					<div class="row">
+						<div class="col col-md-1 col-xs-1">ID</div>
+						<div class="col col-md-2 col-xs-2">
+							List of clients
+						</div>
+						<div class="col col-md-4 col-xs-4">Description</div>
+						
+						<div class="col col-md-2 col-xs-2"></div>
+					</div>
+				</div>
+			</header>
+			<div class="orders-table">
+				{{#each allRules}}
+					{{> rule_item this}}
+					<hr>
+				{{/each}}
+			</div>
+		</section>
+	</div>
+</template>

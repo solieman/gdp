@@ -112,19 +112,3 @@ Template.list_of_ads.events({
     Router.go('checkout');
   },
 });
-
-// function callAntWait() {
-    // const promise = new Promise() {
-    //   Meteor.call('calculateTotal', listOfRulesArray, selectedAds, (error, response) => {
-    //     if (error) {
-    //       console.log('err',error);
-    //       promise.reject(error);
-    //     } else {
-    //       const cTotal = parseFloat(Number(response).toFixed(2));
-    //       console.log('currentTotal',cTotal);
-    //       promise.resolve(cTotal);
-    //     }
-    //   });
-    // };
-    // return promise; 
-// }

@@ -47,5 +47,8 @@ Template.admin_screen.helpers({
 });
 
 Template.admin_screen.events({
+	'click .edit-rules-btn' (event) {
+		Router.go('rules');
+	}
 	
 });

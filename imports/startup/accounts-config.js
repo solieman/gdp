@@ -45,7 +45,7 @@ if ( Meteor.users.find().count() === 0 ) {
 		if(error) {
 			console.log(error.message);
 		} else {
-			console.log('...');
+			
 		}
 
 	})
